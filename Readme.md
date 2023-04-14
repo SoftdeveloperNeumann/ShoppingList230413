@@ -65,26 +65,13 @@ Durch die Implementierung eines DAOs wird die Codebasis leichter lesbar, wartbar
 
 Insgesamt bietet die Verwendung einer separaten Klasse zur Datenbank-Interaktion eine effektive Möglichkeit, den Code zu organisieren und zu strukturieren, um eine höhere Codequalität und Wartbarkeit zu erreichen.
 
-```plantuml
+```mermaid
+classDiagram
 
-@startuml
-scale 3
 
-class MainActivity {
-
-}
-
-class DataSource{
-
-}
-
-class Openhelper{
-
-}
-
-MainActivity <-> DataSource 
-DataSource <-> Openhelper
-@enduml
+MainActivity <--> DAO 
+DAO <--> SQLiteHelper
+SQLiteHelper <--> Database
 
 ```
 

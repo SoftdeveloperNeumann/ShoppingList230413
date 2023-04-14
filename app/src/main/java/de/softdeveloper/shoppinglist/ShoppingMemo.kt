@@ -3,7 +3,8 @@ package de.softdeveloper.shoppinglist
 data class ShoppingMemo(
     var quantity : Int,
     var product : String,
-    var id : Long
+    var id : Long,
+    var isSelected: Boolean
 ) {
 
     override fun toString(): String {

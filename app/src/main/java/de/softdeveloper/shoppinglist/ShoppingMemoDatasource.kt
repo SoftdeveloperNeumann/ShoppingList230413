@@ -1,5 +1,6 @@
 package de.softdeveloper.shoppinglist
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
@@ -37,6 +38,11 @@ class ShoppingMemoDatasource(context:Context) {
         return shoppingMemoList
     }
 
+    init {
+        helper = ShoppingMemoDbHelper(context)
+        Log.d(TAG, "DB-Init: Datasource hat den Helper angelegt")
+    }
+
     private fun cursorToShoppingMemo(cursor: Cursor): ShoppingMemo {
         val idIndex = cursor.getColumnIndex(ShoppingMemoDbHelper.COLUMN_ID)
         val quantityIndex = cursor.getColumnIndex(ShoppingMemoDbHelper.COLUMN_QUANTITY)
@@ -49,10 +55,26 @@ class ShoppingMemoDatasource(context:Context) {
         return ShoppingMemo(quantity, product, id)
     }
 
-    init {
-        helper = ShoppingMemoDbHelper(context)
-        Log.d(TAG, "DB-Init: Datasource hat den Helper angelegt")
+    fun createShoppingMemo(quantity:Int,product:String):ShoppingMemo{
+        val values = ContentValues().apply {
+            put(ShoppingMemoDbHelper.COLUMN_QUANTITY, quantity)
+            put(ShoppingMemoDbHelper.COLUMN_PRODUCT, product)
+        }
+
+        val insertId = db?.insert(ShoppingMemoDbHelper.TABEL_SHOPPING_LIST,null,values)?: -1
+        val cursor = db?.query(
+            ShoppingMemoDbHelper.TABEL_SHOPPING_LIST,
+            columns,
+            "${ShoppingMemoDbHelper.COLUMN_ID} = $insertId",
+            null,null,null,null
+        )
+        cursor?.moveToFirst()
+        val memo = cursorToShoppingMemo(cursor!!)
+        cursor.close()
+        return memo
     }
+
+
 
     fun open(){
         db = helper.writableDatabase

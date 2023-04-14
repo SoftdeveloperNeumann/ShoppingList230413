@@ -73,7 +73,6 @@ DAO <--> SQLiteHelper
 SQLiteHelper <--> Database
 ```
 
-
 &copy; 2023 by Frank Neumann
 
 ## Lizenztext

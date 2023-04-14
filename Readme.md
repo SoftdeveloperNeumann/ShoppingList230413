@@ -67,12 +67,10 @@ Insgesamt bietet die Verwendung einer separaten Klasse zur Datenbank-Interaktion
 
 ```mermaid
 classDiagram
-
-
+direction LR;
 MainActivity <--> DAO 
 DAO <--> SQLiteHelper
 SQLiteHelper <--> Database
-
 ```
 
 

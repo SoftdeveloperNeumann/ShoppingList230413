@@ -3,6 +3,7 @@ package de.softdeveloper.shoppinglist
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
 import de.softdeveloper.shoppinglist.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -17,12 +18,32 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         datasource = ShoppingMemoDatasource(this)
+
+        initShoppingMemoListView()
+    }
+
+    private fun initShoppingMemoListView() {
+       val emptyListForInit: List<ShoppingMemo> = ArrayList()
+        val adapter =object: ArrayAdapter<ShoppingMemo>(
+            this,android.R.layout.simple_list_item_multiple_choice,
+            emptyListForInit
+        ){}
+        binding.lvShoppingMemos.adapter = adapter
+    }
+
+    private fun showAllShoppingMemos(){
+        val list = datasource.allShoppingMemos
+        val adapter = binding.lvShoppingMemos.adapter as ArrayAdapter<ShoppingMemo>
+        adapter.clear()
+        adapter.addAll(list)
+        adapter.notifyDataSetChanged()
     }
 
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart: DataSource wird geöffnet")
         datasource.open()
+        showAllShoppingMemos()
     }
 
     override fun onStop() {

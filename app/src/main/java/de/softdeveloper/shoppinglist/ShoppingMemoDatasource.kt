@@ -93,6 +93,11 @@ class ShoppingMemoDatasource(context:Context) {
         )
     }
 
+    fun deleteShoppingMemo(memo: ShoppingMemo) {
+        db?.delete(ShoppingMemoDbHelper.TABEL_SHOPPING_LIST,"${ShoppingMemoDbHelper.COLUMN_ID} = ${memo.id}",null)
+    }
+
+
 
     fun open(){
         db = helper.writableDatabase
@@ -101,6 +106,7 @@ class ShoppingMemoDatasource(context:Context) {
     fun close(){
         helper.close()
     }
+
 
 
 }

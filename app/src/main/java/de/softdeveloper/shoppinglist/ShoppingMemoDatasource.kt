@@ -6,14 +6,14 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
 
-class ShoppingMemoDatasource(context:Context) {
+class ShoppingMemoDatasource(context: Context) {
 
     private val TAG = "ShoppingMemoDataSource"
 
-    private var db: SQLiteDatabase? =null
+    private var db: SQLiteDatabase? = null
     private val helper: ShoppingMemoDbHelper
 
-    private val columns= arrayOf(
+    private val columns = arrayOf(
         ShoppingMemoDbHelper.COLUMN_ID,
         ShoppingMemoDbHelper.COLUMN_QUANTITY,
         ShoppingMemoDbHelper.COLUMN_PRODUCT,
@@ -21,23 +21,23 @@ class ShoppingMemoDatasource(context:Context) {
     )
 
     val allShoppingMemos: List<ShoppingMemo>
-    get() {
-        val shoppingMemoList: MutableList<ShoppingMemo> = ArrayList()
-        val cursor = db?.query(
-            ShoppingMemoDbHelper.TABEL_SHOPPING_LIST,
-            columns,
-            null,null,null,null,null
-        )
-        cursor?.moveToFirst()
-        var memo:ShoppingMemo
-        while (!cursor?.isAfterLast!!){
-            memo = cursorToShoppingMemo(cursor)
-            shoppingMemoList.add(memo)
-            cursor.moveToNext()
+        get() {
+            val shoppingMemoList: MutableList<ShoppingMemo> = ArrayList()
+            val cursor = db?.query(
+                ShoppingMemoDbHelper.TABEL_SHOPPING_LIST,
+                columns,
+                null, null, null, null, null
+            )
+            cursor?.moveToFirst()
+            var memo: ShoppingMemo
+            while (!cursor?.isAfterLast!!) {
+                memo = cursorToShoppingMemo(cursor)
+                shoppingMemoList.add(memo)
+                cursor.moveToNext()
+            }
+            cursor.close()
+            return shoppingMemoList
         }
-        cursor.close()
-        return shoppingMemoList
-    }
 
     init {
         helper = ShoppingMemoDbHelper(context)
@@ -58,18 +58,18 @@ class ShoppingMemoDatasource(context:Context) {
         return ShoppingMemo(quantity, product, id, isSelected)
     }
 
-    fun createShoppingMemo(quantity:Int,product:String):ShoppingMemo{
+    fun createShoppingMemo(quantity: Int, product: String): ShoppingMemo {
         val values = ContentValues().apply {
             put(ShoppingMemoDbHelper.COLUMN_QUANTITY, quantity)
             put(ShoppingMemoDbHelper.COLUMN_PRODUCT, product)
         }
 
-        val insertId = db?.insert(ShoppingMemoDbHelper.TABEL_SHOPPING_LIST,null,values)?: -1
+        val insertId = db?.insert(ShoppingMemoDbHelper.TABEL_SHOPPING_LIST, null, values) ?: -1
         val cursor = db?.query(
             ShoppingMemoDbHelper.TABEL_SHOPPING_LIST,
             columns,
             "${ShoppingMemoDbHelper.COLUMN_ID} = $insertId",
-            null,null,null,null
+            null, null, null, null
         )
         cursor?.moveToFirst()
         val memo = cursorToShoppingMemo(cursor!!)
@@ -78,7 +78,7 @@ class ShoppingMemoDatasource(context:Context) {
     }
 
     fun updateShoppingMemo(quantity: Int, product: String, id: Long, isSelected: Boolean) {
-        val intIsSelected = if(isSelected) 1 else 0
+        val intIsSelected = if (isSelected) 1 else 0
         val values = ContentValues().apply {
             put(ShoppingMemoDbHelper.COLUMN_QUANTITY, quantity)
             put(ShoppingMemoDbHelper.COLUMN_PRODUCT, product)
@@ -94,19 +94,21 @@ class ShoppingMemoDatasource(context:Context) {
     }
 
     fun deleteShoppingMemo(memo: ShoppingMemo) {
-        db?.delete(ShoppingMemoDbHelper.TABEL_SHOPPING_LIST,"${ShoppingMemoDbHelper.COLUMN_ID} = ${memo.id}",null)
+        db?.delete(
+            ShoppingMemoDbHelper.TABEL_SHOPPING_LIST,
+            "${ShoppingMemoDbHelper.COLUMN_ID} = ${memo.id}",
+            null
+        )
     }
 
 
-
-    fun open(){
+    fun open() {
         db = helper.writableDatabase
     }
 
-    fun close(){
+    fun close() {
         helper.close()
     }
-
 
 
 }

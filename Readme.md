@@ -75,6 +75,23 @@ DAO <--> SQLiteHelper
 SQLiteHelper <--> Database
 
 ```
+## Erweiterung durch einen Content Provider
+
+Ein Content Provider ist ein zentraler Datenzugriffspunkt in Android, der den Zugriff auf einen zentralen Datenbestand verwaltet¹. Ein Content Provider ist Teil einer Android-Anwendung und bietet oft eine eigene Benutzeroberfläche für die Arbeit mit den Daten an. Content Provider sind jedoch hauptsächlich dafür gedacht, von anderen Anwendungen verwendet zu werden, die den Provider mit einem Provider-Client-Objekt aufrufen¹. Ein Content Provider bietet eine Schnittstelle zwischen einer Anwendung und den Android-Datenquellen wie Datenbanken, Dateien und SharedPreferences³.
+
+Ein Content Provider ist wie ein zentraler Speicherort, in dem die Daten der Anwendungen gespeichert werden und es anderen Anwendungen ermöglicht wird, auf diese Daten zuzugreifen und sie basierend auf den Benutzeranforderungen sicher zu ändern². Der ContentProvider repräsentiert die enthaltenen Daten einer Tabelle⁴.
+
+Quelle:
+
+(1) Content provider basics | Android Developers. https://developer.android.com/guide/topics/providers/content-provider-basics.
+
+(2) Content Providers in Android with Example - TutorialsPoint. https://www.tutorialspoint.com/content-providers-in-android-with-example.
+
+(3) Content Providers in Android with Example - GeeksforGeeks. https://www.geeksforgeeks.org/content-providers-in-android-with-example/.
+
+(4) Googles Android/ ContentProvider - Wikibooks. https://de.wikibooks.org/wiki/Googles_Android/_ContentProvider.
+
+(5) Content Provider - content.de. https://www.content.de/lexicon/Content-Provider-155.html.
 
 
 &copy; 2023 by Frank Neumann

@@ -11,6 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShoppingList"
         tools:targetApi="31">
+
+        <provider
+            android:name=".ShoppingMemoContentProvider"
+            android:authorities="de.softdeveloper.ShoppingMemoContentProvider"
+            android:enabled="true"
+            android:exported="true"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

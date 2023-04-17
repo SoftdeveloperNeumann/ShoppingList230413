@@ -12,7 +12,7 @@ import java.net.URL
 class ShoppingMemoContentProvider : ContentProvider() {
 
     companion object{
-        val PROVIDER_NAME = this.javaClass.name //de.softdeveloper.shoppinglist.ShoppingMemoContentProvider
+        val PROVIDER_NAME = "de.softdeveloper.shoppinglist.ShoppingMemoContentProvider"
         val URL = "content://$PROVIDER_NAME/${ShoppingMemoDbHelper.TABEL_SHOPPING_LIST}"
         val CONTENT_URI = Uri.parse(URL)
         val uriMatcher: UriMatcher

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ShoppingList</string>
+    <string name="perm_desc">Wollen sie erlauben, dass die Shoppinglist verwendet wird?</string>
+    <string name="perm_lable">ShoppingListPermission</string>
 </resources>
